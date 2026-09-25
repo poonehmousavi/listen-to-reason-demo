@@ -205,7 +205,7 @@ h2{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--so
 #pfig .fl.on{opacity:.95; animation:pdash .9s linear infinite}
 #pfig .tdot{fill:var(--burnt)}
 @keyframes pdash{to{stroke-dashoffset:-30}}
-#pfig.run .st, #pfig.run .ctxl, #pfig.run .newlab{opacity:.25; transition:opacity .4s}
+#pfig.run .st, #pfig.run .ctxl, #pfig.run .newlab{opacity:.25; transition:opacity .25s}
 #pfig.run .st.lit, #pfig.run .ctxl.lit, #pfig.run .newlab.lit{opacity:1}
 #pfig.run .tn:not(.lit) .b{stroke-opacity:.5}
 #pfig .br.scan{stroke-width:3.4}
@@ -300,17 +300,17 @@ h2{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--so
     const dot = document.getElementById('tdot'), my = tok; dot.setAttribute('opacity', 1);
     for(let k = 1; k < path.length; k++){
       const e = document.getElementById(`e-${path[k-1]}-${path[k]}`); if(!e) continue; const L = e.getTotalLength(), t0 = performance.now();
-      await new Promise(res => { const st = now => { if(my !== tok) return res(); const f = reduce ? 1 : Math.min(1, (now - t0) / 380), p = e.getPointAtLength(L * f);
+      await new Promise(res => { const st = now => { if(my !== tok) return res(); const f = reduce ? 1 : Math.min(1, (now - t0) / 230), p = e.getPointAtLength(L * f);
         dot.setAttribute('cx', p.x); dot.setAttribute('cy', p.y); if(f < 1) requestAnimationFrame(st); else { e.classList.add('lit'); document.getElementById('n-' + path[k]).classList.add('lit'); res(); } }; requestAnimationFrame(st); });
     }
   }
   const STEPS = [
-    ['<b>Chunk.</b> The clip is cut into overlapping 3 s windows, one every 1.5 s. Each window is routed on its own.', () => { lit('[data-s="1"]'); $$('.br').forEach((b, i) => later(() => { $$('.br').forEach(x => x.classList.remove('scan')); b.classList.add('scan'); }, 350 * i)); }],
+    ['<b>Chunk.</b> The clip is cut into overlapping 3 s windows, one every 1.5 s. Each window is routed on its own.', () => { lit('[data-s="1"]'); $$('.br').forEach((b, i) => later(() => { $$('.br').forEach(x => x.classList.remove('scan')); b.classList.add('scan'); }, 200 * i)); }],
     ['<b>Region gate.</b> For every chunk, a trained head on CLAP decides which of speech, music and environmental sound are present. Here: speech and sound, no music.', () => { lit('[data-s="2"]'); flow('a1'); later(() => $$('.gate').forEach(g => g.classList.add('hot')), 200); }],
-    ['<b>Frozen encoders, small heads.</b> Each open region is read by the encoder that fits it: WavLM-SV for gender, BEATs and CLAP for sound. Only the small heads are trained.', () => { lit('[data-s="3"]'); $$('.enc-row').forEach((r, i) => later(() => { $$('.enc-row').forEach(x => x.classList.remove('hot')); r.classList.add('hot'); }, 260 * i)); }],
+    ['<b>Frozen encoders, small heads.</b> Each open region is read by the encoder that fits it: WavLM-SV for gender, BEATs and CLAP for sound. Only the small heads are trained.', () => { lit('[data-s="3"]'); $$('.enc-row').forEach((r, i) => later(() => { $$('.enc-row').forEach(x => x.classList.remove('hot')); r.classList.add('hot'); }, 150 * i)); }],
     ['<b>Walk the tree.</b> The heads pick a path from region to attribute to value to leaf: speech ▸ gender ▸ female voice, and sound ▸ animal ▸ dog ▸ Bark. Music is not heard, so its branch stays closed.', async () => { lit('[data-s="4"]'); flow('a2'); document.getElementById('n-clip').classList.add('lit'); await walk(['clip','sp','spg','spf']); await walk(['clip','so','soa','sod','sob']); }],
-    ['<b>Write it down.</b> Every reached node becomes one line of plain text.', () => { lit('[data-s="5"]'); flow('a3'); later(() => document.getElementById('c1').classList.add('lit'), 300); later(() => document.getElementById('c2').classList.add('lit'), 700); }],
-    ['<b>Transcript.</b> Speech was heard, so Whisper\'s timestamped transcript is added. Without speech or singing it is left out.', () => { flow('asr'); later(() => document.getElementById('c3').classList.add('lit'), 500); }],
+    ['<b>Write it down.</b> Every reached node becomes one line of plain text.', () => { lit('[data-s="5"]'); flow('a3'); later(() => document.getElementById('c1').classList.add('lit'), 150); later(() => document.getElementById('c2').classList.add('lit'), 450); }],
+    ['<b>Transcript.</b> Speech was heard, so Whisper\'s timestamped transcript is added. Without speech or singing it is left out.', () => { flow('asr'); later(() => document.getElementById('c3').classList.add('lit'), 300); }],
     ['<b>Read.</b> Any frozen text LLM gets the context, the question and the options. It never hears the audio.', () => { lit('[data-s="7"]'); flow('a4'); flow('a5'); }],
     ['<b>Answer.</b> (b) a woman. The answer can be traced to the two nodes in the context.', () => { lit('[data-s="8"]'); flow('a6'); }],
     ['<b>Add a domain.</b> A new branch, such as bird species, is one encoder and one small head trained on a few clips per class. Nothing else changes.', () => { svg.querySelector('#e-new').classList.add('on'); document.getElementById('n-new').classList.add('lit'); svg.querySelector('.newlab').classList.add('lit'); }],
@@ -319,7 +319,7 @@ h2{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--so
   function go(i){ clear(); if(i === 0){ $$('.lit').forEach(e => e.classList.remove('lit')); svg.querySelector('#e-new').classList.remove('on'); }
     svg.classList.add('run'); cur = i; cap.innerHTML = STEPS[i][0]; STEPS[i][1](); }
   // plays by itself, forever: each step ~3.6 s, a short pause on the full picture, then again from the start
-  function loop(){ const n = cur + 1; if(n >= STEPS.length){ cur = -1; setTimeout(loop, 1500); return; } go(n); setTimeout(loop, reduce ? 4500 : 3600); }
+  function loop(){ const n = cur + 1; if(n >= STEPS.length){ cur = -1; setTimeout(loop, 1000); return; } go(n); setTimeout(loop, reduce ? 3000 : 2200); }
   loop();
 })();
 </script>
