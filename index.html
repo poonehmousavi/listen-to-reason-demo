@@ -136,7 +136,7 @@ h2{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--so
 .site > section:first-child{border-top:0}
 .hero{padding-block:44px 20px}
 .hero h1{font-family:"IBM Plex Serif",Georgia,serif; font-weight:500; font-size:clamp(30px,5vw,50px); line-height:1.08; margin:0; text-wrap:balance}
-.hero h1 em{font-style:italic; color:var(--teal)}
+.hero h1 em{font-style:italic; color:var(--teal)} .hero h1 em.kl{color:var(--teal)} .hero h1 em.kr{color:var(--violet)} .hero h1 em.ko{color:var(--burnt)}
 .hero .sub{font-size:clamp(17px,2.2vw,21px); color:var(--soft); margin:0; max-width:62ch; text-wrap:balance}
 .anon{font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--soft); margin:0}
 .links{display:flex; flex-wrap:wrap; gap:10px}
@@ -250,9 +250,9 @@ h2{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--so
 <body>
 <div class="site">
 <section class="hero" id="top">
-  <h1>LISTEN-to-Reason: <em>Listen with Experts</em>, Retrieve over a Graph, Reason with LLMs</h1>
-  <p class="sub">Frozen expert audio encoders and small trained heads place every 3-second chunk of a clip in an explicit tree of named audio nodes. A frozen text-only LLM answers from those nodes and a transcript. It never hears the audio, and every answer can be traced to the nodes it read.</p>
-  <div class="links"><a class="off" href="#top">Paper (after review)</a><a class="off" href="#top">Code (after review)</a><a href="#examples">Explore examples</a><a href="#tree">Browse the tree</a></div>
+  <h1>LISTEN-to-Reason: <em class="kl">Listen with Experts</em>, <em class="kr">Retrieve over a Graph</em>, <em class="ko">Reason with LLMs</em></h1>
+  <p class="sub">Listen-to-Reason (L2R) is an interpretable-by-design pipeline that passes audio to the LLM through an explicit, human-readable tree: small heads on frozen expert encoders map each chunk of a clip to semantically meaningful nodes on the tree (for speech, music and environmental sound), and a frozen text-only LLM answers from these nodes and an ASR transcript without hearing the clip. Every answer can therefore be traced to the nodes and transcript it read.</p>
+  <div class="links"><a class="off" href="#top">Paper</a><a href="https://github.com/poonehmousavi/listen-to-reason" target="_blank" rel="noopener">Code</a><a href="#examples">Explore examples</a><a href="#tree">Browse the tree</a></div>
   <div class="facts">
     <div class="fact"><b>39 attributes · 363 values · 668 leaves</b><span>in the audio tree, over speech, music and environmental sound</span></div>
     <div class="fact"><b>7.7M trained parameters</b><span>small heads on frozen encoders; the reader LLM is never fine-tuned</span></div>
