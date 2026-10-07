@@ -147,6 +147,7 @@ h2{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--so
 .links a.cta{font-size:15.5px; padding:10px 20px; border:2px solid var(--teal); background:var(--teal); color:var(--panel); border-radius:8px}
 .links a.cta:hover{filter:brightness(1.12); color:var(--panel)}
 .links a.cta.alt{background:var(--violet); border-color:var(--violet)}
+.lgrp{align-items:center} .lnote{flex:0 0 100%; font-size:12.5px; color:var(--soft)}
 
 .facts{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px; margin-top:6px}
 .fact{border-top:2px solid var(--teal); padding-top:8px}
@@ -257,7 +258,7 @@ h2{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--so
 <section class="hero" id="top">
   <h1>LISTEN-to-Reason: <em class="kl">Listen</em> with Experts, <em class="kr">Retrieve</em> over a Graph, <em class="ko">Reason</em> with LLMs</h1>
   <p class="sub">Listen-to-Reason (L2R) is an interpretable-by-design pipeline that passes audio to the LLM through an explicit, human-readable tree: small heads on frozen expert encoders map each chunk of a clip to semantically meaningful nodes on the tree (for speech, music and environmental sound), and a frozen text-only LLM answers from these nodes and an ASR transcript without hearing the clip. Every answer can therefore be traced to the nodes and transcript it read.</p>
-  <div class="links"><div class="lgrp"><a class="cta" href="#examples">Explore examples &#8594;</a><a class="cta alt" href="#tree">Browse the tree &#8594;</a></div><div class="lgrp"><a class="off" href="#top">Paper</a><a href="https://anonymous.4open.science/r/listen-to-reason-code/" target="_blank" rel="noopener">Code</a></div></div>
+  <div class="links"><div class="lgrp"><a class="cta" href="#examples">Explore examples &#8594;</a><a class="cta alt" href="#tree">Browse the tree &#8594;</a></div><div class="lgrp"><a class="off" href="#top">Paper</a><a href="https://anonymous.4open.science/r/listen-to-reason-code/" target="_blank" rel="noopener">Code</a><span class="lnote">The code viewer opens best in Chrome. In Firefox, turn off Enhanced Tracking Protection for the site if the page stays empty.</span></div></div>
   <div class="facts">
     <div class="fact"><b>39 attributes · 363 values · 668 leaves</b><span>in the audio tree, over speech, music and environmental sound</span></div>
     <div class="fact"><b>7.7M trained parameters</b><span>small heads on frozen encoders; the reader LLM is never fine-tuned</span></div>
